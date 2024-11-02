@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return render_template('index.html', output=None)
+    return render_template('index.html', image_path="static/Corn.png" )
 
 
 from datetime import datetime
@@ -26,18 +26,21 @@ def calculate():
 
         quality = random.uniform(0.01, 0.02)  
         effective_crop = amt_crop * (1 - quality)
-        
+        image_path = "static/Corn.png" 
         if crop_type == 'corn':
             cost_per_lb = 0.5
+            image_path = "static/Corn.png"
         elif crop_type == 'carrots':
             cost_per_lb = 0.4  
+            image_path = "static/Carrots.png"
         elif crop_type == 'potatoes':
             cost_per_lb = 0.6  
+            image_path = "static/Potatoes.png"
         else:
             effective_crop = 0
-        
-        total_price = total_transportation_cost + (effective_crop * cost_per_lb)
+             
 
+        total_price = total_transportation_cost + (effective_crop * cost_per_lb)
 
         current_time = datetime.now()
         current_date = current_time.strftime('%Y-%m-%d')
@@ -49,6 +52,7 @@ def calculate():
         total_price = None
         cost_per_lb = None
         customer_name = None
+        image_path = "static/Corn.png"
     else:
         output = "Receipt created successfully."
         
@@ -82,8 +86,10 @@ def calculate():
         total_transportation_cost=round(total_transportation_cost, 2) if total_transportation_cost else None,
         total_price=round(total_price, 2) if total_price else None,
         cost_per_lb=round(cost_per_lb, 2) if cost_per_lb else None,
-        receipt_buffer=buffer.getvalue()  
+        receipt_buffer=buffer.getvalue(),
+        image_path=image_path  
     )
+
 
 @app.route('/download')
 def download():
