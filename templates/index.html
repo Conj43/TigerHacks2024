@@ -9,12 +9,9 @@
 <body>
     <div class="header">
         <h1>Mizzou-Corn</h1>
-        <div class="tooltipgiver right">
-            <button class="questionButton right">?</button>
-            <span class="tooltips">Insert Help Text here</span>
-        </div>
+        
     </div>
-    <div class="main">
+    <div class="main left">
         <form action="/calculate" method="post">
             <div class="form-group">
                 <label for="customer_name">Customer Name:</label>
@@ -61,6 +58,15 @@
     {% endif %}
     
 
+    </div>
+    
+    <div class="tooltipgiver right">
+        <button class="questionButton right">?</button>
+        <span class="tooltips">Insert Help Text here</span>
+    </div>
+
+    <div class ="main right">
+        <img src="static/Corn.png" alt="Pixel art of a corn field with a sunrise">
     </div>
 </body>
 </html>
