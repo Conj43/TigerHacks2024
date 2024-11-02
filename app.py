@@ -1,6 +1,7 @@
 import random
 from flask import Flask, render_template, request, send_file
 import io
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -8,45 +9,62 @@ app = Flask(__name__)
 def hello():
     return render_template('index.html', output=None)
 
+
+from datetime import datetime
+
 @app.route('/calculate', methods=['POST'])
 def calculate():
     try:
         customer_name = request.form.get('customer_name') 
         day_of_week = request.form.get('day_of_week')  
-        amt_corn = float(request.form.get('amt_corn'))  
+        crop_type = request.form.get('crop_type')  # Get crop type
+        amt_crop = float(request.form.get('amt_crop'))  # Use single amount input
         distance = float(request.form.get('distance'))  
         
         charge_per_mile = 0.50
-        
         total_transportation_cost = distance * charge_per_mile
-        
-        quality = random.uniform(0.01, 0.02)  # random quality control check
-        
-        effective_corn = amt_corn * (1 - quality)  # amount of corn 
 
-        cost_per_lb = 0.5
-        total_price = total_transportation_cost + (amt_corn * cost_per_lb)
+        quality = random.uniform(0.01, 0.02)  # Random quality control check
+        effective_crop = amt_crop * (1 - quality)
+        
+        if crop_type == 'corn':
+            cost_per_lb = 0.5
+        elif crop_type == 'carrots':
+            cost_per_lb = 0.4  
+        elif crop_type == 'potatoes':
+            cost_per_lb = 0.6  
+        else:
+            effective_crop = 0
+        
+        total_price = total_transportation_cost + (effective_crop * cost_per_lb)
 
+
+        current_time = datetime.now()
+        current_date = current_time.strftime('%Y-%m-%d')
+        current_time_str = current_time.strftime('%I:%M:%S %p') 
     except (ValueError, TypeError):
         output = "Invalid input. Please enter numeric values."
-        effective_corn = None
+        effective_crop = None
         total_transportation_cost = None
         total_price = None
         cost_per_lb = None
         customer_name = None
     else:
         output = "Receipt created successfully."
-
+        
         receipt_info = f"""Receipt
         Customer Name: {customer_name}
+        Date (YYYY-MM-DD): {current_date}
+        Time: {current_time_str}
         Day of the Week: {day_of_week}
-        Total Amount of Effective Corn (after quality control): {round(effective_corn, 2) if effective_corn else 0} lb
+        Crop Type: {crop_type.capitalize()}
+        Total Amount of Effective Crop (after quality control): {round(effective_crop, 2) if effective_crop else 0} lb
         Transportation Cost ($ per mile): ${round(charge_per_mile, 2)}
         Total Transportation Cost: ${round(total_transportation_cost, 2) if total_transportation_cost else 0}
         Cost per lb: ${round(cost_per_lb, 2)}
         Total Amount Owed: ${round(total_price, 2) if total_price else 0}
         """
-
+        
         buffer = io.StringIO()
         buffer.write(receipt_info)
         buffer.seek(0)  
@@ -54,16 +72,18 @@ def calculate():
     return render_template(
         'index.html', 
         output=output, 
+        current_date=current_date,
+        current_time=current_time_str,  
         customer_name=customer_name,
         day_of_week=day_of_week,
-        effective_corn=round(effective_corn, 2) if effective_corn else None,
+        crop_type=crop_type,
+        effective_crop=round(effective_crop, 2) if effective_crop else None,
         transportation_cost_per_mile=round(charge_per_mile, 2),
         total_transportation_cost=round(total_transportation_cost, 2) if total_transportation_cost else None,
         total_price=round(total_price, 2) if total_price else None,
         cost_per_lb=round(cost_per_lb, 2) if cost_per_lb else None,
         receipt_buffer=buffer.getvalue()  
     )
-
 
 @app.route('/download')
 def download():

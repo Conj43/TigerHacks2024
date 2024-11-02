@@ -38,8 +38,18 @@
             </div>
 
             <div class="form-group">
-                <label for="amt_corn">Amount of Corn (in lbs):</label>
-                <input type="number" id="amt_corn" name="amt_corn" required>
+                <label for="crop_type">Select Crop Type:</label>
+                <select id="crop_type" name="crop_type" required>
+                    <option value="">--Select a Crop--</option>
+                    <option value="corn">Corn</option>
+                    <option value="carrots">Carrots</option>
+                    <option value="potatoes">Potatoes</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="amt_crop">Amount of Crop (in lbs):</label>
+                <input type="number" id="amt_crop" name="amt_crop" required>
             </div>
             
             <div class="form-group">
@@ -53,16 +63,20 @@
         {% if output %}
         <div class="receipt">
             <h2>Receipt</h2>
-            <p><strong>Customer Name:</strong> {{ customer_name }}</p>
-            <p><strong>Day of the Week:</strong> {{ day_of_week }}</p>
-            <p><strong>Total Amount of Effective Corn (after quality control):</strong> {{ effective_corn }} lb </p>
-            <p><strong>Transportation Cost ($ per mile):</strong> ${{ transportation_cost_per_mile }} per mile</p>
-            <p><strong>Total Transportation Cost:</strong> ${{ total_transportation_cost }}</p>
-            <p><strong>Cost per lb:</strong> ${{ cost_per_lb }}</p>
-            <p><strong>Total Amount Owed:</strong> ${{ total_price }}</p>
+            <p><strong>Customer Name: </strong> {{ customer_name }}</p>
+            <p><strong>Date (YYYY-MM-DD): </strong> {{ current_date }}</p>
+            <p><strong>Time: </strong> {{ current_time }}</p>
+            <p><strong>Day of the Week: </strong> {{ day_of_week }}</p>
+            <p><strong>Crop Type: </strong> {{ crop_type }}</p>
+            <p><strong>Total Amount of Effective Crop (after quality control): </strong> {{ effective_crop }} lb </p>
+            <p><strong>Transportation Cost ($ per mile): </strong> ${{ transportation_cost_per_mile }} per mile</p>
+            <p><strong>Total Transportation Cost: </strong> ${{ total_transportation_cost }}</p>
+            <p><strong>Cost per lb: </strong> ${{ cost_per_lb }}</p>
+            <p><strong>Total Amount Owed: </strong> ${{ total_price }}</p>
             <a href="/download?receipt={{ receipt_buffer | urlencode }}" class="buttonDownload">Download Receipt</a>
         </div>
-    {% endif %}
+        {% endif %}
+
 
     <!-- Put in image here for it to appear when user clicks on receipt. -->
     
