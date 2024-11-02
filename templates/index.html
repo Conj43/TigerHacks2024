@@ -9,10 +9,7 @@
 <body>
     <div class="header">
         <h1>Mizzou-Corn</h1>
-        <div class="tooltipgiver right">
-            <button class="questionButton right">?</button>
-            <span class="tooltips">Insert Help Text here</span>
-        </div>
+        
     </div>
     <div class="main">
         <form action="/calculate" method="post">
@@ -58,6 +55,11 @@
                 <p><strong>Total Amount Owed:</strong> ${{ total_price }}</p>
             </div>
         {% endif %}
+    </div>
+    
+    <div class="tooltipgiver right">
+        <button class="questionButton right">?</button>
+        <span class="tooltips">Insert Help Text here</span>
     </div>
 </body>
 </html>
