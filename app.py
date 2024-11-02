@@ -26,16 +26,16 @@ def calculate():
 
         quality = random.uniform(0.01, 0.02)  
         effective_crop = amt_crop * (1 - quality)
-        image_path = "static/Corn.png" 
+        image_path = "static/cornSmall.png" 
         if crop_type == 'corn':
             cost_per_lb = 0.5
-            image_path = "static/Corn.png"
+            image_path = "static/cornSmall.png"
         elif crop_type == 'carrots':
             cost_per_lb = 0.4  
-            image_path = "static/Carrots.png"
+            image_path = "static/carrotSmall.png"
         elif crop_type == 'potatoes':
             cost_per_lb = 0.6  
-            image_path = "static/Potatoes.png"
+            image_path = "static/potatoSmall.png"
         else:
             effective_crop = 0
              

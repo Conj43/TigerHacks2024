@@ -12,9 +12,10 @@
     </div>
 
     <p></p>
-
+    
     <div>
-        <img id="cropImage" class="main right" src="{{ image_path }}" alt="Pixel art image">
+        
+        <img class="main right" src="static/Corn.png" alt="Pixel art of a corn field with a sunrise">
     </div>
 
 
@@ -74,12 +75,14 @@
             <p><strong>Cost per lb: </strong> ${{ cost_per_lb }}</p>
             <p><strong>Total Amount Owed: </strong> ${{ total_price }}</p>
             <a href="/download?receipt={{ receipt_buffer | urlencode }}" class="buttonDownload">Download Receipt</a>
+            
         </div>
+        <img id="cropImage" class="right" src="{{ image_path }}" alt="Pixel art image of crop">
         {% endif %}
 
 
     <!-- Put in image here for it to appear when user clicks on receipt. -->
-    
+   
 
     </div>
     
