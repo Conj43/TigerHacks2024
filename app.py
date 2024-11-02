@@ -1,11 +1,8 @@
 import random
-from flask import Flask, render_template, request
-from pymongo import MongoClient
+from flask import Flask, render_template, request, send_file
+import io
 
 app = Flask(__name__)
-
-
-
 
 @app.route('/')
 def hello():
@@ -38,10 +35,22 @@ def calculate():
         cost_per_lb = None
         customer_name = None
     else:
-        output = "Calculation completed successfully."
+        output = "Receipt created successfully."
 
+        receipt_info = f"""Receipt
+        Customer Name: {customer_name}
+        Day of the Week: {day_of_week}
+        Total Amount of Effective Corn (after quality control): {round(effective_corn, 2) if effective_corn else 0} lb
+        Transportation Cost ($ per mile): ${round(charge_per_mile, 2)}
+        Total Transportation Cost: ${round(total_transportation_cost, 2) if total_transportation_cost else 0}
+        Cost per lb: ${round(cost_per_lb, 2)}
+        Total Amount Owed: ${round(total_price, 2) if total_price else 0}
+        """
 
-
+        buffer = io.StringIO()
+        buffer.write(receipt_info)
+        buffer.seek(0)  
+    
     return render_template(
         'index.html', 
         output=output, 
@@ -52,7 +61,23 @@ def calculate():
         total_transportation_cost=round(total_transportation_cost, 2) if total_transportation_cost else None,
         total_price=round(total_price, 2) if total_price else None,
         cost_per_lb=round(cost_per_lb, 2) if cost_per_lb else None,
+        receipt_buffer=buffer.getvalue()  
     )
+
+
+@app.route('/download')
+def download():
+
+    receipt_info = request.args.get('receipt', '')
+    buffer = io.StringIO()
+    buffer.write(receipt_info)
+    buffer.seek(0)
+    
+    return send_file(io.BytesIO(buffer.getvalue().encode()), 
+                     as_attachment=True, 
+                     download_name='receipt.txt',  
+                     mimetype='text/plain')
+
 
 if __name__ == '__main__':
     app.run()
