@@ -53,7 +53,7 @@
             <p><strong>Total Transportation Cost:</strong> ${{ total_transportation_cost }}</p>
             <p><strong>Cost per lb:</strong> ${{ cost_per_lb }}</p>
             <p><strong>Total Amount Owed:</strong> ${{ total_price }}</p>
-            <a href="/download?receipt={{ receipt_buffer | urlencode }}" class="buttonDownload">Download Receipt</a>
+            <button href="/download?receipt={{ receipt_buffer | urlencode }}" class="buttonDownload">Download Receipt</button>
         </div>
     {% endif %}
     
@@ -65,7 +65,7 @@
         <span class="tooltips">Insert Help Text here</span>
     </div>
 
-    <div class ="main right">
+    <div>
         <img src="static/Corn.png" alt="Pixel art of a corn field with a sunrise">
     </div>
 </body>

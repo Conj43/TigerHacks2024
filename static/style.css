@@ -19,6 +19,7 @@ body {
     border-radius: 100%;
     border:none;
     margin: 5px;
+    padding: 5px;
 }
 
 .main {
@@ -30,6 +31,7 @@ body {
     box-shadow: 5px 5px 2px black;
     max-height: auto; 
     max-width: 720px;
+    padding:5px;
 }
 
 
@@ -41,7 +43,7 @@ body {
     right: 0;
 }
 
-.buttonEnter {
+.buttonEnter, .buttonDownload {
     border-radius: 5px;
     border-color: black;
 }
