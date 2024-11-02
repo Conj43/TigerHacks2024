@@ -1,7 +1,13 @@
 import random
 from flask import Flask, render_template, request
+from pymongo import MongoClient
 
 app = Flask(__name__)
+
+
+client = MongoClient('mongodb://localhost:27017/') 
+db = client['Mizzou-Corn']  
+collection = db['corn_sales']  
 
 @app.route('/')
 def hello():
@@ -19,14 +25,12 @@ def calculate():
         
         total_transportation_cost = distance * charge_per_mile
         
-        quality = random.uniform(0.01, 0.02) # random quality control check
+        quality = random.uniform(0.01, 0.02)  # random quality control check
         
-        effective_corn = amt_corn * (1 - quality)  #  amount of corn 
-        
+        effective_corn = amt_corn * (1 - quality)  # amount of corn 
 
         cost_per_lb = 0.5
-
-        total_price = total_transportation_cost + (amt_corn*cost_per_lb)
+        total_price = total_transportation_cost + (amt_corn * cost_per_lb)
 
     except (ValueError, TypeError):
         output = "Invalid input. Please enter numeric values."
@@ -37,7 +41,22 @@ def calculate():
         customer_name = None
     else:
         output = "Calculation completed successfully."
+
+        crop_data = {
+            'customer_name': customer_name,
+            'day_of_week': day_of_week,
+            'amt_corn': amt_corn,
+            'distance': distance,
+            'charge_per_mile': charge_per_mile,
+            'total_transportation_cost': total_transportation_cost,
+            'quality': quality,
+            'effective_corn': effective_corn,
+            'cost_per_lb': cost_per_lb,
+            'total_price': total_price
+        }
         
+        collection.insert_one(crop_data)
+
     return render_template(
         'index.html', 
         output=output, 
