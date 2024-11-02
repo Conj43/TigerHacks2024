@@ -53,7 +53,7 @@
             <p><strong>Total Transportation Cost:</strong> ${{ total_transportation_cost }}</p>
             <p><strong>Cost per lb:</strong> ${{ cost_per_lb }}</p>
             <p><strong>Total Amount Owed:</strong> ${{ total_price }}</p>
-            <button href="/download?receipt={{ receipt_buffer | urlencode }}" class="buttonDownload">Download Receipt</button>
+            <a href="/download?receipt={{ receipt_buffer | urlencode }}" class="buttonDownload">Download Receipt</a>
         </div>
     {% endif %}
     
