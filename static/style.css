@@ -41,6 +41,11 @@ body {
     right: 0;
 }
 
+.buttonEnter {
+    border-radius: 5px;
+    border-color: black;
+}
+
 
 .tooltipgiver {
     position: relative;
@@ -83,11 +88,15 @@ button {
     cursor: pointer; 
 }
 
+input {
+    border-radius: 2px;
+}
+
 
 .receipt {
-    margin-top: 20px;
-    border: 1px solid #ccc; 
-    padding: 15px; 
+    margin-top: 15px;
+    border: 1px solid black; 
+    padding: 35px; 
     background-color: #f9f9f9; 
     overflow: auto; 
 }
