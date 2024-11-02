@@ -25,6 +25,7 @@ body {
     background-color: rgb(160, 90, 90);
     position: relative; 
     overflow: auto; 
+    padding: 5px;
     border-radius: 4px;
     box-shadow: 5px 5px 2px black;
     max-height: auto; 
