@@ -17,14 +17,14 @@ def calculate():
     try:
         customer_name = request.form.get('customer_name') 
         day_of_week = request.form.get('day_of_week')  
-        crop_type = request.form.get('crop_type')  # Get crop type
-        amt_crop = float(request.form.get('amt_crop'))  # Use single amount input
+        crop_type = request.form.get('crop_type')  
+        amt_crop = float(request.form.get('amt_crop'))  
         distance = float(request.form.get('distance'))  
         
         charge_per_mile = 0.50
         total_transportation_cost = distance * charge_per_mile
 
-        quality = random.uniform(0.01, 0.02)  # Random quality control check
+        quality = random.uniform(0.01, 0.02)  
         effective_crop = amt_crop * (1 - quality)
         
         if crop_type == 'corn':
