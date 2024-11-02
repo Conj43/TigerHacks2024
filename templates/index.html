@@ -11,6 +11,11 @@
         <h1>Mizzou-Corn</h1>
         
     </div>
+    <div>
+        <img class="right" src="static/Corn.png" alt="Pixel art of a corn field with a sunrise">
+    </div>
+
+
     <div class="main left">
         <form action="/calculate" method="post">
             <div class="form-group">
@@ -56,10 +61,9 @@
             <a href="/download?receipt={{ receipt_buffer | urlencode }}" class="buttonDownload">Download Receipt</a>
         </div>
     {% endif %}
+
+    //Put in image here for it to appear when user clicks on receipt.
     
-    <div>
-        <img class="right" src="static/Corn.png" alt="Pixel art of a corn field with a sunrise">
-    </div>
 
     </div>
     
